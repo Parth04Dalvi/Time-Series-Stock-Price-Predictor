@@ -1,58 +1,59 @@
-📈 Time-Series Stock Price Predictor
-A Data Science Simulation for Financial Forecasting
-This project is a single-page web application that simulates an end-to-end stock price prediction service. It demonstrates a robust architecture for time-series analysis, integrating a mock Python machine learning backend with a modern, highly responsive financial dashboard.
+📈 Time-Series Stock Prediction Simulator (Python)
 
-The application allows users to input a stock ticker and a prediction horizon, visualizing the historical data alongside the future forecast and its associated uncertainty.
+This Python script simulates a complete machine learning backend process for time-series stock price forecasting. It generates mock historical data, simulates the training of a predictive model, and outputs future price forecasts along with realistic confidence intervals to quantify prediction uncertainty.
 
-✨ Key Technical Skills Demonstrated
-This project is an excellent showcase of multi-disciplinary technical abilities:
+✨ Key Features
 
-Skill Area
+Mock Data Generation: Generates a realistic 90-day history of stock closing prices, simulating a natural market trend with daily volatility.
 
-Features Demonstrated
+Simulated ML Prediction: The train_and_predict_stock_price function mimics a forecasting model that projects future prices based on a learned trend and mock random walk.
 
-Data Science / ML
+Prediction Confidence Intervals: A critical feature for financial modeling. Each prediction includes a lower bound and an upper bound, which naturally widen the further into the future the prediction goes, reflecting increased uncertainty.
 
-Simulation of an ARIMA/RNN model for time-series forecasting in the Python backend.
+JSON Output: The final results (historical data, latest price, and all predicted points) are compiled into a structured JSON format, making the data ready for consumption by a frontend application (e.g., for visualization in a charting library).
 
-Prediction Modeling
+⚙️ How the Prediction Works (Simulated Logic)
 
-Calculation and visualization of Prediction Confidence Intervals (CI), showcasing an understanding of model uncertainty and statistical accuracy.
+The simulation uses a controlled random walk algorithm layered on a slight upward trend. The core logic for the Confidence Intervals is designed to represent real-world model risk:
 
-Full-Stack Architecture
+$$\text{Lower Bound} = \text{Predicted Price} \times (1 - \text{Confidence Multiplier})$$
 
-Clear separation between the simulated Python backend (data processing) and the HTML/JS frontend (data visualization).
+$$\text{Upper Bound} = \text{Predicted Price} \times (1 + \text{Confidence Multiplier})$$
 
-Advanced Visualization
+The Confidence Multiplier dynamically increases with the number of prediction days, accurately modeling the concept that uncertainty grows as you forecast further into the future.
 
-Utilization of Chart.js to display complex datasets, including plotting the historical and predicted line, and rendering the CI band as a shaded area.
+▶️ Usage
 
-Fintech UI/UX
+The script is designed to be run via the command line and outputs the prediction JSON to standard output.
 
-Professional, data-driven dashboard design featuring a dark control panel, clear Key Performance Indicators (KPIs), and dynamic icons for immediate visual feedback.
+Prerequisites
 
-🛠️ Technology Stack
-Frontend: HTML5, Tailwind CSS (for modern, responsive styling)
+Python 3.x
 
-Visualization: Chart.js v4+ (for dynamic, interactive stock charts and CI bands)
+Example Execution
 
-Core Logic: Vanilla JavaScript (simulating asynchronous API calls)
+To run the simulation and predict the price movements for a mock ticker (default TSLA) for 14 days, simply execute the file:
 
-Backend Simulation: Python (conceptual code demonstrating ML pipeline steps)
+python stock_predictor.py
 
-🚀 How to Use the Simulator
-The entire application runs from the single index.html file, which includes all the mock data generation logic necessary to function without a real API key or live Python server.
 
-Open the file: Load stock_predictor/index.html in any modern web browser.
+Output Snippet
 
-Input Data: Enter a stock ticker (e.g., GOOG, AAPL) and the number of days you wish to predict (1-30).
+The output is a structured JSON object, making it easy to parse in any client application:
 
-Run Model: Click the "Run Prediction Model" button. The UI will display a loading spinner to simulate the model training time.
-
-Analyze Results:
-
-KPIs: Review the latest price and the Projected Price Change (with dynamic up/down arrows).
-
-Chart: The main visualization displays the Historical Price (solid green line) and the Predicted Price (dashed indigo line).
-
-Uncertainty: The shaded blue band around the predicted line represents the 95% Confidence Interval, demonstrating how prediction certainty decreases the further you look into the future.
+{
+    "ticker": "TSLA",
+    "latest_price": 163.51,
+    "historical_data": [
+        /* ... */
+    ],
+    "predicted_data": [
+        {
+            "date": "YYYY-MM-DD",
+            "price": 164.05,
+            "lower_bound": 163.23,
+            "upper_bound": 164.87
+        },
+        /* ... subsequent predictions with widening bounds ... */
+    ]
+}
