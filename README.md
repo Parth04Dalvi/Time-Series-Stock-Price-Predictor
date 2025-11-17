@@ -1,5 +1,8 @@
 📈 Time-Series Stock Prediction Simulator (Python)
 
+<img width="443" height="600" alt="image" src="https://github.com/user-attachments/assets/a8bd725c-ae5d-4961-97f1-069172cccdde" />
+
+
 This Python script simulates a complete machine learning backend process for time-series stock price forecasting. It generates mock historical data, simulates the training of a predictive model, and outputs future price forecasts along with realistic confidence intervals to quantify prediction uncertainty.
 
 ✨ Key Features
